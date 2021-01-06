@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TrainStorage
 {
-    class Train
+    public class Train : IComparable
     {
         public string Destination { get; set; }
         public int Number { get; set; }
@@ -14,6 +14,16 @@ namespace TrainStorage
             Destination = destination;
             Number = number;
             Departure = departure;
+        }
+
+        int IComparable.CompareTo(object obj)
+        {
+            if (obj == null) return -1;
+
+            Train train = obj as Train;
+            if (Number == train.Number) return 0;
+
+            return 1;
         }
     }
 }

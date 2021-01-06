@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TrainStorage
 {
-    class TrainList
+    public class TrainList
     {
         protected List<Train> trains = new List<Train>();
 
@@ -24,19 +24,25 @@ namespace TrainStorage
             {
                 var train = trains[i];
                 trainStrings[i] = $"{train.Destination}, #{train.Number} " +
-                                  $"[{train.Departure.Day}.{train.Departure.Month}.{train.Departure.Year} " +
-                                  $"{train.Departure.Hour}:{train.Departure.Minute}]";
+                                  $"[{train.Departure.ToShortDateString()} {train.Departure.ToShortTimeString()}]";
             }
 
             return trainStrings;
         }
     }
 
-    class TrainStorage : TrainList
+    public class TrainStorage : TrainList
     {
-        public void AddTrain(string destination, int number, DateTime departure)
+        public bool AddTrain(string destination, int number, DateTime departure)
         {
-            trains.Add(new Train(destination, number, departure));
+            var newTrain = new Train(destination, number, departure);
+            if (trains.BinarySearch(newTrain) < 0)
+            {
+                trains.Add(newTrain);
+                return true;
+            }
+            
+            return false;
         }
 
         public void RemoveAllTrains()
@@ -47,6 +53,12 @@ namespace TrainStorage
         public void RemoveTrainByIndex(int index)
         {
             trains.RemoveAt(index);
+        }
+
+        public string[] GetStringifiedList(Comparison<Train> comparer)
+        {
+            trains.Sort(comparer);
+            return GetStringifiedList();
         }
     }
 }

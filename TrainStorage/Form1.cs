@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace TrainStorage
@@ -16,6 +17,12 @@ namespace TrainStorage
         {
             trainListBox.Items.Clear();
             trainListBox.Items.AddRange(trainStorage.GetStringifiedList());
+        }
+
+        private void UpdateList(Comparison<Train> comparer)
+        {
+            trainListBox.Items.Clear();
+            trainListBox.Items.AddRange(trainStorage.GetStringifiedList(comparer));
         }
 
         private void fillButton_Click(object sender, EventArgs e)
@@ -79,9 +86,30 @@ namespace TrainStorage
                     return;
                 }
 
-                trainStorage.AddTrain(destination, number, departure);
-                UpdateList();
+                if (trainStorage.AddTrain(destination, number, departure))
+                {
+                    UpdateList();
+                }
+                else
+                {
+                    MessageBox.Show($"Ошибка в поле \"Номер поезда\": номер должен быть уникальным", "Ошибка добавления");
+                }
             }
+        }
+
+        private void destinationRadioButton_Click(object sender, EventArgs e)
+        {
+            UpdateList(new TrainDestinationComparer().Compare);
+        }
+
+        private void numberRadioButton_Click(object sender, EventArgs e)
+        {
+            UpdateList(new TrainNumberComparer().Compare);
+        }
+
+        private void departureRadioButton_Click(object sender, EventArgs e)
+        {
+            UpdateList(new TrainDepartureComparer().Compare);
         }
     }
 }

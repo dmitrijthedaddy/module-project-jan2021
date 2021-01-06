@@ -112,6 +112,7 @@
             this.departureRadioButton.TabStop = true;
             this.departureRadioButton.Text = "отправление (по дате)";
             this.departureRadioButton.UseVisualStyleBackColor = true;
+            this.departureRadioButton.Click += new System.EventHandler(this.departureRadioButton_Click);
             // 
             // numberRadioButton
             // 
@@ -123,6 +124,7 @@
             this.numberRadioButton.TabStop = true;
             this.numberRadioButton.Text = "номер поезда";
             this.numberRadioButton.UseVisualStyleBackColor = true;
+            this.numberRadioButton.Click += new System.EventHandler(this.numberRadioButton_Click);
             // 
             // destinationRadioButton
             // 
@@ -134,6 +136,7 @@
             this.destinationRadioButton.TabStop = true;
             this.destinationRadioButton.Text = "пункт назначения";
             this.destinationRadioButton.UseVisualStyleBackColor = true;
+            this.destinationRadioButton.Click += new System.EventHandler(this.destinationRadioButton_Click);
             // 
             // destinationTextBox
             // 
