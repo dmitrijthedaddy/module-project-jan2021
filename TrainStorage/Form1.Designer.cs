@@ -244,7 +244,7 @@
             this.Controls.Add(this.fillButton);
             this.Controls.Add(this.trainListBox);
             this.Name = "Form1";
-            this.Text = "List<T>";
+            this.Text = "Работа с обобщенной коллекцией List<T>";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
